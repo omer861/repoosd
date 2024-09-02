@@ -1,0 +1,42 @@
+# Ignore database files
+db.sqlite3
+
+# Ignore environment files
+*.env
+
+# Ignore Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore virtual environment directories
+venv/
+env/
+
+# Ignore Django-specific files
+/media/
+/static/
+/migrations/
+
+# Ignore log files
+*.log
+
+# Ignore compiled Python files
+*.pyc
+
+# Ignore HDF5 files
+*.h5
+
+# Ignore model files
+*.pkl
+
+# Ignore antibody structure files
+*.fasta
+*.pdb
+
+# Ignore CSV files
+*.csv
+
+# Ignore files related to the IDE
+.vscode/
+.idea/

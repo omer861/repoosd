@@ -1,0 +1,8 @@
+Django==5.1
+pandas
+scikit-learn
+joblib
+keras
+biopython
+nglview
+igfold

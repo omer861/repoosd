@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D PDB Viewer</title>
+    <!-- Load 3Dmol.js from the CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/3dmol@1.8.0/build/3Dmol-min.js"></script>
+</head>
+<body>
+    <h1>3D View of PDB File</h1>
+    <div id="pdb-viewer" style="width: 800px; height: 600px;"></div>
+
+    <script>
+        // Initialize the viewer
+        let viewer = $3Dmol.createViewer('pdb-viewer', {
+            backgroundColor: 'white'
+        });
+
+        // Add the PDB content directly to the viewer
+        viewer.addModel(`{{ pdb_content|safe }}`, 'pdb');
+        viewer.setStyle({}, {cartoon: {color: 'spectrum'}});
+        viewer.zoomTo();
+        viewer.render();
+    </script>
+</body>
+</html>

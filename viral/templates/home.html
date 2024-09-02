@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGAbPred Antibody Prediction Tools 1.0</title>
+    {% load static %}
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: 'Arial', sans-serif;
+            background: url('{% static "images/home.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            z-index: 1; /* Ensure content is above background */
+        }
+
+        header {
+            position: relative;
+            z-index: 1000;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-content img {
+            height: 500px; /* Increase the size of the logo image */
+            margin-bottom: 20px; /* Space between logo and text */
+        }
+
+        h1 {
+            font-size: 3rem; /* Adjust font size for the title */
+            font-weight: bold;
+            margin: 0;
+            color: black; /* Set text color to black */
+        }
+
+        h2 {
+            font-size: 1.5em;
+            font-weight: normal;
+            margin: 5px 0;
+        }
+
+        .button-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button-container button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin: 15px;
+            cursor: pointer;
+            font-size: 1.5em;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .button-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <img src="{% static 'images/rego.png' %}" alt="Regenova Logo">
+                <h1>Therapeutic Research and Antibody Creation Engine (TRACE)™</h1>
+            </div>
+        </header>
+        <div class="button-container">
+            <button onclick="location.href='{% url 'viral' %}'">Viral</button>
+        </div>
+    </div>
+</body>
+</html>

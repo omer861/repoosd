@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antibody Prediction Result</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include 3Dmol.js -->
+    <script src="https://cdn.jsdelivr.net/npm/3dmol@1.8.0/build/3Dmol-min.js"></script>
+    <style>
+        /* Ensure the viewers fit within their container */
+        #pdb-viewer-normal, #pdb-viewer-two-cols {
+            width: 100%;
+            height: 400px;
+            position: relative; /* Ensure they respect the layout */
+        }
+
+        .viewer-container {
+            margin-bottom: 20px; /* Add space between viewers */
+        }
+
+        /* Ensure columns do not overflow */
+        .col-md-6 {
+            box-sizing: border-box;
+        }
+
+        /* Handle text overflow in list items */
+        .list-group-item {
+            white-space: pre-wrap; /* Wrap text inside the list items */
+            word-wrap: break-word; /* Break long words to prevent overflow */
+        }
+    </style>
+</head>
+<body class="bg-light p-4">
+    <div class="container">
+        <h1 class="text-center mb-5">Antibody Prediction Result</h1>
+        <div class="row">
+            <!-- Left Column: Predicted Antibody Details -->
+            <div class="col-md-6">
+                {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                {% else %}
+                    <h2 class="mb-3">Predicted Antibody Sequence:</h2>
+                    <ul class="list-group mb-4">
+                        {% for key, value in predicted_antibody.items %}
+                            <li class="list-group-item">{{ key }}: {{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <h3 class="mb-4">Predicted Binding Affinity: {{ binding_affinity }}</h3>
+                {% endif %}
+            </div>
+
+            <!-- Right Column: 3Dmol.js Viewers -->
+            <div class="col-md-6">
+                {% if pdb_content %}
+                    <!-- First Viewer: Normal View -->
+                    <div class="viewer-container">
+                        <h2 class="mb-3">3D Structure Visualization - Normal View</h2>
+                        <div id="pdb-viewer-normal" class="border rounded"></div>
+                    </div>
+
+                    <!-- Second Viewer: Two-Column View -->
+                    <div class="viewer-container">
+                        <h2 class="mb-3">3D Structure Visualization - Alternative View</h2>
+                        <div id="pdb-viewer-two-cols" class="border rounded"></div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // PDB content should be passed from the backend
+        const pdbContent = `{{ pdb_content|safe }}`;
+
+        // Initialize the first viewer (Normal View)
+        let viewerNormal = $3Dmol.createViewer('pdb-viewer-normal', {
+            backgroundColor: 'white'
+        });
+
+        // Add the PDB content to the first viewer
+        viewerNormal.addModel(pdbContent, 'pdb');
+        viewerNormal.setStyle({}, {cartoon: {color: 'spectrum'}});
+        
+        // Enable hoverable labels for the first viewer
+        viewerNormal.setHoverable({}, true,
+            function(atom, viewer) {
+                if (!atom.label) {
+                    atom.label = viewer.addLabel(
+                        atom.resn + ":" + atom.atom,
+                        {
+                            position: atom,
+                            backgroundColor: 'mintcream',
+                            fontColor: 'black'
+                        }
+                    );
+                }
+            },
+            function(atom, viewer) {
+                if (atom.label) {
+                    viewer.removeLabel(atom.label);
+                    delete atom.label;
+                }
+            }
+        );
+
+        viewerNormal.zoomTo();
+        viewerNormal.render();
+
+        // Initialize the second viewer (Alternative View)
+        let viewerTwoCols = $3Dmol.createViewer('pdb-viewer-two-cols', {
+            backgroundColor: 'white'
+        });
+
+        // Add the PDB content to the second viewer with a different style or view
+        viewerTwoCols.addModel(pdbContent, 'pdb');
+        viewerTwoCols.setStyle({}, {stick: {radius: 0.2}, sphere: {scale: 0.3}});
+
+        // Enable hoverable labels for the second viewer
+        viewerTwoCols.setHoverable({}, true,
+            function(atom, viewer) {
+                if (!atom.label) {
+                    atom.label = viewer.addLabel(
+                        atom.resn + ":" + atom.atom,
+                        {
+                            position: atom,
+                            backgroundColor: 'mintcream',
+                            fontColor: 'black'
+                        }
+                    );
+                }
+            },
+            function(atom, viewer) {
+                if (atom.label) {
+                    viewer.removeLabel(atom.label);
+                    delete atom.label;
+                }
+            }
+        );
+
+        viewerTwoCols.zoomTo();
+        viewerTwoCols.render();
+    </script>
+
+    <!-- Bootstrap JS (Optional for interactive components) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

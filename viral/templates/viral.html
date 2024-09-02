@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Viral Antibody Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Center content vertically */
+            font-size: 20px; /* Increase default font size */
+        }
+
+        h1 {
+            color: #333;
+            font-size: 48px; /* Increase header font size */
+            margin-bottom: 30px; /* Space between header and form */
+        }
+
+        form {
+            max-width: 600px; /* Increase form width */
+            width: 100%; /* Ensure form takes full width up to max-width */
+            padding: 40px; /* Increase padding inside form */
+            background-color: #fff;
+            border-radius: 12px; /* More rounded corners */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+            font-size: 20px; /* Increase text size inside form */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 15px; /* Increase margin below label */
+            color: #333;
+            font-size: 24px; /* Increase label text size */
+        }
+
+        textarea {
+            width: calc(100% - 28px); /* Adjust width to account for padding and border */
+            height: 150px; /* Set a height for the textarea */
+            padding: 20px; /* Increase input padding */
+            margin-bottom: 25px; /* Increase margin below input */
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px; /* Increase border radius */
+            font-size: 20px; /* Increase input text size */
+            resize: vertical; /* Allow vertical resizing */
+        }
+
+        input[type="submit"], button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 20px 40px; /* Increase button padding */
+            font-size: 22px; /* Increase button text size */
+            border-radius: 8px; /* Increase border radius */
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover, button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Viral Antigen Sequence</h1>
+    <form action="{% url 'res' %}" method="get">
+        <label for="antigen_sequence">Viral Antigen Sequence:</label>
+        <textarea id="antigen_sequence" name="ANTIGEN_SEQUENCE" required></textarea>
+        <input type="hidden" name="page_type" value="viral">
+        <button type="submit">Predict</button>
+    </form>
+</body>
+</html>
